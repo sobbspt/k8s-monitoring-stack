@@ -1,0 +1,10 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: elasticsearch-exporter-sm
+spec:
+  selector:
+    matchLabels:
+      app: elasticsearch-exporter
+  endpoints:
+    - port: "9108"
