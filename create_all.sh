@@ -19,3 +19,6 @@ helm install my-release ingress-nginx/ingress-nginx
 
 # Is my serviceMonitor get discovered ?
 kubectl -n monitoring get secret prometheus-prometheus-operator-kube-p-prometheus -ojson | jq -r '.data["prometheus.yaml.gz"]' | base64 -d | gunzip | grep node
+
+# To install a service monitor external, use
+helm upgrade --install es-external-monitor ./service-monitor-external -f ./service-monitor-external/values.yaml
