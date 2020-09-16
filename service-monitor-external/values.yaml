@@ -1,0 +1,23 @@
+nameOverride: "elastic-service-monitor"
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port:
+    name: metrics
+    servicePort: 9114
+    targetPort: 9114
+    protocol: TCP
+  externalName: 192.168.1.53
+
+prometheus:
+  serviceMonitorSelector:
+    app: service-monitor
+
+serviceMonitor:
+  spec:
+    endpoints:
+      interval: 10s
+      honorLabels: true
+
+

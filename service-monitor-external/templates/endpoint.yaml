@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    {{- include "service-monitor-external.labels" . | nindent 4 }}
+subsets:
+  - addresses:
+    - ip: {{ .Values.service.externalName }}
+    ports:
+      - name: {{ .Values.service.port.name }}
+        port: {{ .Values.service.port.targetPort }}
+        protocol: {{ .Values.service.port.protocol }}

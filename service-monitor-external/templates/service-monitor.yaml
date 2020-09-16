@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    {{- toYaml .Values.prometheus.serviceMonitorSelector | nindent 4 }}
+    {{- include "service-monitor-external.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "service-monitor-external.name" . }}
+  endpoints:
+  - port: {{ .Values.service.port.name }}
+    interval: {{ .Values.serviceMonitor.spec.endpoints.interval }}
+    honorLabels: {{ .Values.serviceMonitor.spec.endpoints.honorLabels }}

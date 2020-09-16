@@ -6,14 +6,10 @@ prometheusOperator:
 
 prometheus:
   prometheusSpec:
-    serviceMonitorSelectorNilUsesHelmValues: false
-  additionalServiceMonitors:
-    - name: "elasticsearch-exporter"
-      selector: 
-        matchLabels:
-          app: elasticsearch-exporter
-      endpoints: 
-        - port: "http"
+    # serviceMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelector:
+      matchExpressions:
+        - {key: app, operator: Exists}
   ingress: 
     enabled: true
     hosts: [prometheus.127.0.0.1.xip.io]
